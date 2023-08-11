@@ -40,9 +40,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: AndreiRosu/gitstream-github-action
-          token: ${{ secrets.ACCESS_TOKEN }}
           ref: 3bbbe130d9bfc546df5ea7c1ca55089b20a95102
           path: ./github/actions/gitstream-github-action
+      - name: 'Debugging'
+        run: |
+          echo "*** HEAD_REF ***: ${{ github.event.inputs.head_ref }}"
+          echo "*** BASE_REF ***: ${{ github.event.inputs.base_ref }}"
+          echo "*** CLIENT_PAYLOAD ***: ${{ github.event.inputs.client_payload }}"
+          echo "*** RESOLVER_URL ***: ${{ github.event.inputs.resolver_url }}"
+          echo "*** RESOLVER_TOKEN ***: ${{ github.event.inputs.resolver_token }}"
+          echo "*** DEBUG_MODE ***: ${{ github.event.inputs.debug_mode }}"
       - name: 'Evaluate Rules'
         uses: ./github/actions/gitstream-github-action
         id: rules-engine
@@ -54,3 +61,4 @@ jobs:
           installation_id: ${{ github.event.inputs.installation_id }}
           resolver_url: ${{ github.event.inputs.resolver_url }}
           resolver_token: ${{ github.event.inputs.resolver_token }}
+          debug_mode: true
